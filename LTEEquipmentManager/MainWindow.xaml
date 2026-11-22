@@ -1,0 +1,118 @@
+<Window x:Class="LTEEquipmentManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="LTE Equipment Manager" Width="800" Height="450" MinWidth="760" MinHeight="428"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize"
+        Background="White" FontFamily="Segoe UI" UseLayoutRounding="True" SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="35" ResizeBorderThickness="6" GlassFrameThickness="0"
+                            CornerRadius="12" UseAeroCaptionButtons="False"/>
+    </shell:WindowChrome.WindowChrome>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/MainWindow.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Background="{StaticResource MainPageBrush}" BorderBrush="#D0D0D0" BorderThickness="1" Style="{StaticResource MainFrameBorder}">
+        <Grid ClipToBounds="True">
+            <Grid.RowDefinitions><RowDefinition Height="35"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <!-- The reference is 1280x720: 56 for its title bar and 664 for its body. -->
+                <Viewbox Stretch="Fill" IsHitTestVisible="False" Focusable="False">
+                    <Canvas Width="1280" Height="664">
+                        <Path Data="M0,0 L890,0 C570,22 244,90 0,255 Z" Fill="#FBE4E9"/>
+                        <Path Data="M0,0 L811,0 C528,41 230,98 0,225 Z" Fill="#FDEFF2"/>
+                        <Path Data="M0,0 L757,0 C497,60 136,85 0,192 Z">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0.9,0.8">
+                                    <GradientStop Color="#E80005" Offset="0"/>
+                                    <GradientStop Color="#FC0A17" Offset="0.55"/>
+                                    <GradientStop Color="#FF3E4B" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                        </Path>
+                        <Path Data="M0,0 L512,0 C311,28 187,42 0,98 Z">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0.8,1">
+                                    <GradientStop Color="#B20002" Offset="0"/>
+                                    <GradientStop Color="#DE0008" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                        </Path>
+                        <Path Data="M0,98 C177,25 280,40 401,0 L508,0 C273,76 109,101 0,192 Z" Fill="#FF4350" Opacity="0.55"/>
+                        <Path Data="M1280,367 C1124,571 986,610 789,616 C468,655 314,595 51,664 L1280,664 Z" Fill="#FBE6EB"/>
+                        <Path Data="M1280,398 C1155,552 1051,598 884,626 C611,672 475,605 252,664 L1280,664 Z" Fill="#FFF3F5"/>
+                        <Path Data="M51,664 C257,603 343,605 478,622 C672,649 824,603 956,547 C1093,488 1157,438 1207,352 C1143,505 1023,583 837,628 C660,670 459,633 321,664 Z"
+                              Fill="#F8D8E0" Opacity="0.46"/>
+                        <Path Data="M382,664 C606,564 768,634 943,615 C1089,606 1160,540 1280,494 L1280,664 Z" Fill="{StaticResource MainWaveBrush}"/>
+                        <Path Data="M636,664 C804,623 925,665 1100,576 C1046,644 973,658 942,664 Z" Fill="#FF3444" Opacity="0.75"/>
+                        <Path Data="M795,664 C924,648 1028,628 1100,576 C1043,638 1026,649 998,664 Z" Fill="#EC0011" Opacity="0.7"/>
+                    </Canvas>
+                </Viewbox>
+                <Viewbox Stretch="Uniform">
+                    <Canvas Width="1280" Height="664">
+                        <!-- Lettering and the sweep are original WPF geometry, shared in spirit with LoginWindow. -->
+                        <Path Fill="#E30009" Data="M312,120 L327,120 L317,157 L341,157 L337,169 L300,169 Z M340,120 L384,120 L381,131 L367,131 L357,169 L343,169 L353,131 L337,131 Z M387,120 L421,120 L418,131 L397,131 L395,138 L415,138 L412,149 L392,149 L390,158 L412,158 L409,169 L375,169 Z">
+                            <Path.RenderTransform><TranslateTransform Y="-22"/></Path.RenderTransform>
+                        </Path>
+                        <TextBlock Canvas.Left="430" Canvas.Top="85" Text="Equipment Manager" FontFamily="Segoe UI"
+                                   FontSize="56" FontWeight="Bold" FontStyle="Italic" Foreground="{StaticResource MainInk}"/>
+                        <Path Data="M734,109 C829,55 1005,66 1013,140 C1019,176 951,210 855,217 C929,202 987,171 995,144 C1002,104 870,57 734,109 Z" Fill="#EF000B">
+                            <Path.RenderTransform><TranslateTransform Y="-22"/></Path.RenderTransform>
+                        </Path>
+                        <!-- Only the presentation changes: names, labels and Click handlers are preserved. -->
+                        <Button x:Name="btnAntennaType" Canvas.Left="256" Canvas.Top="230" Content="Antenna Type"
+                                Tag="{StaticResource MainAntennaIcon}" Style="{StaticResource MainNavigationCard}"
+                                TabIndex="0" AutomationProperties.Name="Antenna Type" Click="btnAntennaType_Click"/>
+                        <Button x:Name="btnRRUType" Canvas.Left="668" Canvas.Top="230" Content="RRU Type"
+                                Tag="{StaticResource MainRruIcon}" Style="{StaticResource MainNavigationCard}"
+                                TabIndex="1" AutomationProperties.Name="RRU Type" Click="btnRRUType_Click"/>
+                    </Canvas>
+                </Viewbox>
+            </Grid>
+            <!-- A fixed-height caption stays usable when the menu scales. WindowChrome handles dragging. -->
+            <Border Grid.Row="0" Style="{StaticResource MainHeaderBorder}" Background="{StaticResource MainCaptionBrush}"
+                    BorderBrush="#DF9EA5" BorderThickness="0,0,0,1">
+                <Grid ClipToBounds="True">
+                    <StackPanel Orientation="Horizontal" Margin="20,0,125,0" VerticalAlignment="Center" IsHitTestVisible="False">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Rectangle Fill="White" Width="3" Height="5" Margin="0,0,3,0" VerticalAlignment="Bottom"/>
+                            <Rectangle Fill="White" Width="3" Height="9" Margin="0,0,3,0" VerticalAlignment="Bottom"/>
+                            <Rectangle Fill="White" Width="3" Height="13" Margin="0,0,3,0" VerticalAlignment="Bottom"/>
+                            <Rectangle Fill="White" Width="3" Height="17" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <TextBlock Text="LTE Equipment Manager" FontFamily="Segoe UI" FontSize="15" FontWeight="Bold"
+                                   FontStyle="Italic" Foreground="White" Margin="10,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"
+                                shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Button Style="{StaticResource MainCaptionButton}" Click="MinimizeWindow_Click" ToolTip="Minimize" AutomationProperties.Name="Minimize">
+                            <Path Stroke="White" StrokeThickness="1.5" Data="M0,0 L10,0" Width="10"/>
+                        </Button>
+                        <Button Style="{StaticResource MainCaptionButton}" Click="ToggleMaximizeWindow_Click" ToolTip="Maximize / Restore" AutomationProperties.Name="Maximize or restore">
+                            <Path Stroke="White" StrokeThickness="1.4" Stretch="Uniform" Width="10" Height="10">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Data" Value="M1,1 L11,1 11,11 1,11 Z"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
+                                                <Setter Property="Data" Value="M4,1 L11,1 11,8 M1,4 L8,4 8,11 1,11 Z"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </Button>
+                        <Button Style="{StaticResource MainCloseCaptionButton}" Click="CloseWindow_Click" ToolTip="Close" AutomationProperties.Name="Close">
+                            <Path Stroke="White" StrokeThickness="1.5" Data="M1,1 L11,11 M11,1 L1,11" Stretch="Uniform" Width="11" Height="11"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

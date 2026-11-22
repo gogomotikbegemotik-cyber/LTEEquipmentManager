@@ -1,0 +1,588 @@
+<Window
+    x:Class="LTEEquipmentManager.AntennaTypeWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+    Title="Antenna Types"
+    Width="1400"
+    Height="850"
+    MinWidth="1100"
+    MinHeight="650"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    ResizeMode="CanResize"
+    Background="White"
+    FontFamily="Segoe UI"
+    UseLayoutRounding="True"
+    SnapsToDevicePixels="True"
+    TextOptions.TextFormattingMode="Display"
+    TextOptions.TextRenderingMode="ClearType">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            CaptionHeight="48"
+            ResizeBorderThickness="6"
+            GlassFrameThickness="0"
+            CornerRadius="12"
+            UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="Styles/EquipmentWindows.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border
+        Style="{StaticResource EquipmentFrame}"
+        Background="{StaticResource EquipmentCaptionBrush}"
+        BorderBrush="#D6C5CA"
+        BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="48" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="1"
+                CornerRadius="30,30,0,0"
+                Background="{StaticResource EquipmentPageBrush}"
+                Panel.ZIndex="1"
+                Margin="0,-1,0,0">
+                <Grid
+                    x:Name="grdAntennaMain"
+                    Margin="20,14,20,50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height="1.35*"
+                            MinHeight="154" />
+                        <RowDefinition
+                            Height="12" />
+                        <RowDefinition
+                            Height="*"
+                            MinHeight="154" />
+                        <RowDefinition
+                            Height="12" />
+                        <RowDefinition
+                            Height="*"
+                            MinHeight="154" />
+                    </Grid.RowDefinitions>
+                    <GroupBox
+                        Grid.Row="0"
+                        Style="{StaticResource EquipmentSection}">
+                        <GroupBox.Header>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Image
+                                    Source="{StaticResource EquipmentAntennaIcon}"
+                                    Width="28"
+                                    Height="30" />
+                                <TextBlock
+                                    Text="Antenna Types"
+                                    Style="{StaticResource EquipmentSectionTitle}" />
+                            </StackPanel>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="*" />
+                                <RowDefinition
+                                    Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <DataGrid
+                                x:Name="dgAntennaTypes"
+                                Grid.Row="0"
+                                Margin="0"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                IsReadOnly="True"
+                                SelectionChanged="dgAntennaTypes_SelectionChanged"
+                                BeginningEdit="dgAntennaTypes_BeginningEdit"
+                                Style="{StaticResource EquipmentGrid}"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Header="ID"
+                                        Binding="{Binding Id}"
+                                        IsReadOnly="True"
+                                        Width="60"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Manufacturer"
+                                        Binding="{Binding Manufacturer}"
+                                        Width="150"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Model"
+                                        Binding="{Binding AntennaName}"
+                                        Width="250"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Polarization"
+                                        Binding="{Binding Polarization}"
+                                        Width="150"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="AntennaFamily"
+                                        Binding="{Binding AntennaFamily}"
+                                        Width="150"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Height (mm)"
+                                        Binding="{Binding Height}"
+                                        Width="*"
+                                        MinWidth="100"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,5,0,0">
+                                <Button
+                                    x:Name="btnAdd"
+                                    Content="Add"
+                                    Click="btnAdd_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentAddGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnEdit"
+                                    Content="Edit"
+                                    Click="btnEdit_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentEditGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnDelete"
+                                    Content="Delete"
+                                    Click="btnDelete_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentDeleteGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnSave"
+                                    Content="Save"
+                                    IsEnabled="False"
+                                    Click="btnSave_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentSaveGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnCancel"
+                                    Content="Cancel"
+                                    IsEnabled="False"
+                                    Click="btnCancel_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentCancelGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnRefresh"
+                                    Content="Refresh"
+                                    Click="btnRefresh_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentRefreshGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox
+                        Grid.Row="2"
+                        Style="{StaticResource EquipmentSection}">
+                        <GroupBox.Header>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Image
+                                    Source="{StaticResource EquipmentPortsIcon}"
+                                    Width="28"
+                                    Height="30" />
+                                <TextBlock
+                                    Text="Antenna Ports"
+                                    Style="{StaticResource EquipmentSectionTitle}" />
+                            </StackPanel>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="*" />
+                                <RowDefinition
+                                    Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <DataGrid
+                                x:Name="dgAntennaPorts"
+                                Grid.Row="0"
+                                Margin="0"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                SelectionChanged="dgAntennaPorts_SelectionChanged"
+                                BeginningEdit="dgAntennaPorts_BeginningEdit"
+                                IsReadOnly="True"
+                                Style="{StaticResource EquipmentGrid}"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Header="ID"
+                                        Binding="{Binding Id}"
+                                        IsReadOnly="True"
+                                        Width="60"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="No"
+                                        Binding="{Binding PortNumber}"
+                                        Width="60"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Port Name"
+                                        Binding="{Binding PortName}"
+                                        Width="120"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridComboBoxColumn
+                                        x:Name="colPortType"
+                                        Header="Port Type"
+                                        Width="150"
+                                        SelectedValueBinding="{Binding PortTypeId}"
+                                        SelectedValuePath="Id"
+                                        DisplayMemberPath="Name"
+                                        ElementStyle="{StaticResource EquipmentComboDisplay}"
+                                        EditingElementStyle="{StaticResource EquipmentComboEditor}" />
+                                    <DataGridTextColumn
+                                        Header="Tilt Group"
+                                        Binding="{Binding TiltGroup}"
+                                        Width="90"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Min Tilt"
+                                        Binding="{Binding MinTilt, StringFormat={}{0:F1}}"
+                                        Width="80"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Max Tilt"
+                                        Binding="{Binding MaxTilt, StringFormat={}{0:F1}}"
+                                        Width="80"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Tilt Step"
+                                        Binding="{Binding TiltStep, StringFormat={}{0:F1}}"
+                                        Width="80"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Polarization"
+                                        Binding="{Binding Polarization}"
+                                        Width="100"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="Azimuth Offset"
+                                        Binding="{Binding AzimuthOffsetDeg}"
+                                        Width="110"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridCheckBoxColumn
+                                        Header="Combiner"
+                                        Binding="{Binding Combiner}"
+                                        Width="90"
+                                        ElementStyle="{StaticResource EquipmentCheckDisplay}"
+                                        EditingElementStyle="{StaticResource EquipmentCheckEditor}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,5,0,0">
+                                <Button
+                                    x:Name="btnPortAdd"
+                                    Content="Add"
+                                    Click="btnPortAdd_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentAddGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnPortEdit"
+                                    Content="Edit"
+                                    Click="btnPortEdit_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentEditGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnPortDelete"
+                                    Content="Delete"
+                                    Click="btnPortDelete_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentDeleteGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnPortSave"
+                                    Content="Save"
+                                    IsEnabled="False"
+                                    Click="btnPortSave_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentSaveGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnPortCancel"
+                                    Content="Cancel"
+                                    IsEnabled="False"
+                                    Click="btnPortCancel_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentCancelGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnPortRefresh"
+                                    Content="Refresh"
+                                    Click="btnPortRefresh_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentRefreshGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox
+                        Grid.Row="4"
+                        Style="{StaticResource EquipmentSection}">
+                        <GroupBox.Header>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Image
+                                    Source="{StaticResource EquipmentStandardsIcon}"
+                                    Width="28"
+                                    Height="30" />
+                                <TextBlock
+                                    Text="Port Standards"
+                                    Style="{StaticResource EquipmentSectionTitle}" />
+                            </StackPanel>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="*" />
+                                <RowDefinition
+                                    Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <DataGrid
+                                x:Name="dgAntennaPortStandarts"
+                                Grid.Row="0"
+                                Margin="0"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                BeginningEdit="dgAntennaPortStandarts_BeginningEdit"
+                                SelectionChanged="dgAntennaPortStandarts_SelectionChanged"
+                                IsReadOnly="True"
+                                Style="{StaticResource EquipmentGrid}"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Header="ID"
+                                        Binding="{Binding Id}"
+                                        IsReadOnly="True"
+                                        Width="60"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridComboBoxColumn
+                                        x:Name="colStandart"
+                                        Header="Standard"
+                                        Width="150"
+                                        SelectedValueBinding="{Binding StandartId}"
+                                        SelectedValuePath="Id"
+                                        DisplayMemberPath="StandartName"
+                                        ElementStyle="{StaticResource EquipmentComboDisplay}"
+                                        EditingElementStyle="{StaticResource EquipmentComboEditor}" />
+                                    <DataGridTextColumn
+                                        Header="Gain (dBi)"
+                                        Binding="{Binding Gain, StringFormat={}{0:F2}}"
+                                        Width="100"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="HHPBW (°)"
+                                        Binding="{Binding Hhpbw, StringFormat={}{0:F1}}"
+                                        Width="100"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                    <DataGridTextColumn
+                                        Header="VHPBW (°)"
+                                        Binding="{Binding Vhpbw, StringFormat={}{0:F1}}"
+                                        Width="100"
+                                        ElementStyle="{StaticResource EquipmentCellText}"
+                                        EditingElementStyle="{StaticResource EquipmentEditingText}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,5,0,0">
+                                <Button
+                                    x:Name="btnStandartAdd"
+                                    Content="Add"
+                                    Click="btnStandartAdd_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentAddGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnStandartEdit"
+                                    Content="Edit"
+                                    Click="btnStandartEdit_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentEditGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnStandartDelete"
+                                    Content="Delete"
+                                    Click="btnStandartDelete_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentDeleteGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnStandartSave"
+                                    Content="Save"
+                                    IsEnabled="False"
+                                    Click="btnStandartSave_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentSaveGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnStandartCancel"
+                                    Content="Cancel"
+                                    IsEnabled="False"
+                                    Click="btnStandartCancel_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentCancelGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                                <Button
+                                    x:Name="btnStandartRefresh"
+                                    Content="Refresh"
+                                    Click="btnStandartRefresh_Click"
+                                    Style="{StaticResource EquipmentActionButton}"
+                                    Tag="{StaticResource EquipmentRefreshGeometry}"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </Border>
+            <Border
+                Style="{StaticResource EquipmentCaption}"
+                Background="{StaticResource EquipmentCaptionBrush}">
+                <Grid>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="27,0,150,0"
+                        VerticalAlignment="Center"
+                        IsHitTestVisible="False">
+                        <Image
+                            Source="{StaticResource EquipmentAntennaIcon}"
+                            Width="28"
+                            Height="34" />
+                        <TextBlock
+                            Text="Antenna Types"
+                            Foreground="White"
+                            FontSize="22"
+                            FontStyle="Italic"
+                            FontWeight="SemiBold"
+                            Margin="17,0,0,0"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Button
+                            Style="{StaticResource EquipmentCaptionButton}"
+                            Click="MinimizeWindow_Click"
+                            ToolTip="Minimize"
+                            AutomationProperties.Name="Minimize">
+                            <Path
+                                Stroke="White"
+                                StrokeThickness="1.6"
+                                Data="M0,0 H14"
+                                Width="14" />
+                        </Button>
+                        <Button
+                            Style="{StaticResource EquipmentCaptionButton}"
+                            Click="ToggleMaximizeWindow_Click"
+                            ToolTip="Maximize / Restore"
+                            AutomationProperties.Name="Maximize or restore">
+                            <Path
+                                Stroke="White"
+                                StrokeThickness="1.6"
+                                Width="14"
+                                Height="14"
+                                Stretch="Uniform">
+                                <Path.Style>
+                                    <Style
+                                        TargetType="Path">
+                                        <Setter
+                                            Property="Data"
+                                            Value="M1,1 H15 V15 H1 Z" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                Value="Maximized">
+                                                <Setter
+                                                    Property="Data"
+                                                    Value="M5,1 H15 V11 M1,5 H11 V15 H1 Z" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </Button>
+                        <Button
+                            Style="{StaticResource EquipmentCloseCaptionButton}"
+                            Click="CloseWindow_Click"
+                            ToolTip="Close"
+                            AutomationProperties.Name="Close">
+                            <Path
+                                Stroke="White"
+                                StrokeThickness="1.6"
+                                Data="M1,1 L15,15 M15,1 L1,15"
+                                Width="14"
+                                Height="14"
+                                Stretch="Uniform" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
